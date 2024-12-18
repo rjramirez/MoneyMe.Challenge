@@ -17,11 +17,13 @@ namespace DataAccess.UnitOfWorks.MoneyMeChallengeDB
             _context = context;
             ErrorLogRepository = new ErrorLogRepository(_context);
             AuditTrailRepository = new AuditTrailRepository(_context);
+            QuoteRepository = new QuoteRepository(_context);
         }
 
         public IErrorLogRepository ErrorLogRepository { get; private set; }
 
         public IAuditTrailRepository AuditTrailRepository { get; private set; }
+        public IQuoteRepository QuoteRepository { get; private set; }
 
         public void Dispose()
         {

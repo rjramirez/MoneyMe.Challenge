@@ -13,7 +13,7 @@ namespace DataAccess.DBContexts.MoneyMeChallengeDB.Models
         [Column("QuoteID")]
         public int QuoteId { get; set; }
         [Column(TypeName = "money")]
-        public decimal AmountRequired { get; set; }
+        public decimal Amount { get; set; }
         public short Term { get; set; }
         [Required]
         [StringLength(4)]
@@ -28,11 +28,17 @@ namespace DataAccess.DBContexts.MoneyMeChallengeDB.Models
         [Unicode(false)]
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        [Column(TypeName = "numeric(18, 0)")]
-        public decimal Mobile { get; set; }
+        [Required]
+        [StringLength(20)]
+        [Unicode(false)]
+        public string MobileNumber { get; set; }
         [Required]
         [StringLength(100)]
         [Unicode(false)]
         public string Email { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? UpdatedDate { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime CreatedDate { get; set; }
     }
 }
