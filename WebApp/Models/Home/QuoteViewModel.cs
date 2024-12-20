@@ -3,6 +3,7 @@
     public class QuoteViewModel
     {
         public int QuoteId { get; set; }
+        public string Product { get; set; }
         public decimal Amount { get; set; }
         public string Term { get; set; }
         public decimal MonthlyRepaymentAmount { get; set; }

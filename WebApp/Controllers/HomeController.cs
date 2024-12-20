@@ -42,6 +42,7 @@ namespace WebApp.Controllers
                 QuoteViewModel quoteVM = new QuoteViewModel
                 {
                     QuoteId = quoteDetail.QuoteId,
+                    Product = quoteDetail.Product,
                     Amount = quoteDetail.Amount,
                     Term = quoteDetail.Term,
                     MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount,

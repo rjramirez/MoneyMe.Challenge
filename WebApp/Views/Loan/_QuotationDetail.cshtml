@@ -36,8 +36,12 @@
         @if (Model != null)
         {
             <div class="form-group">
+                <label for="product">Product</label>
+                <input type="text" id="product" name="product" class="form-control" value="@Model.Product" readonly />
+            </div>
+            <div class="form-group">
                 <label for="financeAmount">Finance Amount</label>
-                <input type="text" id="financeAmount" name="financeAmount" class="form-control" value="@Model.Amount" readonly />
+                <input type="text" id="financeAmount" name="financeAmount" class="form-control" value="@Model.Amount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))" readonly />
             </div>
             <div class="form-group">
                 <label for="loanTerm">Loan Term</label>
@@ -45,7 +49,7 @@
             </div>
             <div class="form-group">
                 <label for="monthlyRepaymentAmount">Monthly Repayment Amount</label>
-                <input type="text" id="monthlyRepaymentAmount" name="monthlyRepaymentAmount" class="form-control" value="@Model.MonthlyRepaymentAmount" readonly />
+                <input type="text" id="monthlyRepaymentAmount" name="monthlyRepaymentAmount" class="form-control" value="@Model.MonthlyRepaymentAmount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))" readonly />
             </div>
         }
         else
@@ -59,7 +63,10 @@
     <button type="button" class="btn btn-primary">Apply Now</button>
 </div>
 
-<div class="form-group text-center">
-    <p class="text-muted">* This is a sample disclaimer in gray font color.</p>
-</div>
-
+@if (Model != null) {
+    <div class="form-group text-center">
+        <p class="text-muted">
+            You have selected the <strong>@Model.Product</strong> product. The finance amount is <strong>@Model.Amount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</strong>, which you will repay over a term of <strong>@Model.Term</strong> months. Your monthly repayment amount will be <strong>@Model.MonthlyRepaymentAmount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</strong>.
+        </p>
+    </div>
+}
