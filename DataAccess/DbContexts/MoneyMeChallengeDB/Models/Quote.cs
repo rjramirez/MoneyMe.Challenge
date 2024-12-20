@@ -11,8 +11,12 @@ namespace DataAccess.DBContexts.MoneyMeChallengeDB.Models
     {
         [Key]
         public int QuoteId { get; set; }
+        [StringLength(50)]
+        public string Product { get; set; }
         [Column(TypeName = "money")]
         public decimal Amount { get; set; }
+        [Column(TypeName = "money")]
+        public decimal MonthlyRepaymentAmount { get; set; }
         public short Term { get; set; }
         [Required]
         [StringLength(4)]

@@ -4,20 +4,27 @@
     {
         public int QuoteId { get; set; }
         public string Product { get; set; }
-        public string Term { get; set; }
+        public short Term { get; set; }
         public decimal Amount { get; set; }
+        public string Title { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 
+        private decimal _monthlyRepaymentAmount;
         public decimal MonthlyRepaymentAmount
         {
             get
             {
-                return CalculateMonthlyRepaymentAmount();
+                return _monthlyRepaymentAmount == 0 ? CalculateMonthlyRepaymentAmount() : _monthlyRepaymentAmount;
+            }
+            set
+            {
+                _monthlyRepaymentAmount = value;
             }
         }
 
@@ -25,7 +32,7 @@
         {
             decimal annualInterestRate = 0.10m; // Default 10% annual interest rate
             decimal monthlyInterestRate = annualInterestRate / 12;
-            int termInMonths = int.Parse(Term);
+            int termInMonths = Term; // Use Term directly as it is already a numeric type
 
             if (Product == "ProductA")
             {

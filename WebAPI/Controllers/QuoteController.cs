@@ -31,8 +31,9 @@ namespace WebAPI.Controllers
                 return BadRequest("Invalid quote data.");
             }
 
-            Quote quote = new()
+            QuoteDetail quoteDetail = new QuoteDetail
             {
+                Product = saveQuote.Product,
                 Amount = saveQuote.Amount,
                 Term = saveQuote.Term,
                 Title = saveQuote.Title,
@@ -41,6 +42,21 @@ namespace WebAPI.Controllers
                 DateOfBirth = saveQuote.DateOfBirth,
                 Email = saveQuote.Email,
                 Mobile = saveQuote.Mobile,
+                CreatedDate = DateTime.UtcNow,
+            };
+
+            Quote quote = new()
+            {
+                Product = quoteDetail.Product,
+                Amount = quoteDetail.Amount,
+                Term = quoteDetail.Term,
+                Title = quoteDetail.Title,
+                FirstName = quoteDetail.FirstName,
+                LastName = quoteDetail.LastName,
+                DateOfBirth = quoteDetail.DateOfBirth,
+                Email = quoteDetail.Email,
+                Mobile = quoteDetail.Mobile,
+                MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount,
                 CreatedBy = "rj@moneyme.com",
                 CreatedDate = DateTime.UtcNow,
                 Active = true
@@ -52,65 +68,36 @@ namespace WebAPI.Controllers
             return Ok(quote);
         }
 
-        //[HttpGet("{id}")]
-        //[SwaggerOperation(Summary = "Get Quotation details by ID")]
-        //public async Task<ActionResult<QuoteDetail>> Get(int id)
-        //{
-        //    QuoteDetail quoteDetail = await _projectTemplateDBUnitOfWork.QuoteRepository.
-        //        FirstOrDefaultAsync(selector: e => new QuoteDetail()
-        //        {
-        //            QuoteId = id,
-        //            FinanceAmount = e.Amount,
-        //            Title = e.Title, 
-        //            FirstName = e.FirstName,
-        //            LastName = e.LastName,
-        //            Email = e.Email,
-        //            Mobile= e.Mobile
-        //        },
-        //        predicate: e => e.QuoteId == id);
+        [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get Quotation details by ID")]
+        public async Task<ActionResult<QuoteDetail>> Get(int id)
+        {
+            QuoteDetail quoteDetail = await _projectTemplateDBUnitOfWork.QuoteRepository.
+                FirstOrDefaultAsync(selector: e => new QuoteDetail()
+                {
+                    QuoteId = id,
+                    Product = e.Product,
+                    Term = e.Term,
+                    Amount = e.Amount,
+                    MonthlyRepaymentAmount = e.MonthlyRepaymentAmount,
+                    Title = e.Title,
+                    FirstName = e.FirstName,
+                    LastName = e.LastName,
+                    Email = e.Email,
+                    Mobile = e.Mobile,
+                    CreatedDate = e.CreatedDate,
+                    UpdatedDate = e.UpdatedDate ?? DateTime.MinValue,
+                },
+                predicate: e => e.QuoteId == id);
 
-
-        //    if (quoteDetail == null)
-        //    {
-        //        return NotFound(new ErrorMessage(ErrorMessageTypeConstant.NotFound, $"Error ID not exist: {id}"));
-        //    }
-        //    else
-        //    {
-        //        return Ok(quoteDetail);
-        //    }
-        //}
-
-        //[HttpGet]
-        //[Route("QuoteListPagedSearch")]
-        //[SwaggerOperation(Summary = "Search Error Log with Paging")]
-        //public async Task<ActionResult<PagedList<QuoteDetail>>> Search([FromQuery] CommonSearchFilter commonSearchFilter)
-        //{
-        //    PagedList<QuoteDetail> QuoteDetails = await _projectTemplateDBUnitOfWork.QuoteRepository.GetPagedListAsync(
-        //        selector: e => new QuoteDetail()
-        //        {
-        //            QuoteId = e.QuoteId,
-        //            Amount = e.Amount,
-        //            Title = e.Title,
-        //            FirstName = e.FirstName,
-        //            LastName = e.LastName,
-        //            Email = e.Email,
-        //            Mobile = e.Mobile
-        //        },
-        //        predicate: e => ((commonSearchFilter.StartDate == null || e.DateCreated >= commonSearchFilter.StartDate) &&
-        //                         (commonSearchFilter.EndDate == null || e.DateCreated <= commonSearchFilter.EndDate)) &&
-        //                         (string.IsNullOrEmpty(commonSearchFilter.SearchKeyword) || (e.BuildVersion.Contains(commonSearchFilter.SearchKeyword) ||
-        //                                                                  e.Message.Contains(commonSearchFilter.SearchKeyword) ||
-        //                                                                  e.Path.Contains(commonSearchFilter.SearchKeyword) ||
-        //                                                                  e.Source.Contains(commonSearchFilter.SearchKeyword) ||
-        //                                                                  e.StackTrace.Contains(commonSearchFilter.SearchKeyword) ||
-        //                                                                  e.StackTraceId.Contains(commonSearchFilter.SearchKeyword) ||
-        //                                                                  e.UserIdentity.Contains(commonSearchFilter.SearchKeyword))),
-        //        pagingParameter: commonSearchFilter,
-        //        orderBy: o => o.OrderByDescending(e => e.DateCreated));
-
-        //    Response.Headers.Add(PagingConstant.PagingHeaderKey, QuoteDetails.PagingHeaderValue);
-
-        //    return Ok(QuoteDetails);
-        //}
+            if (quoteDetail == null)
+            {
+                return NotFound(new ErrorMessage(ErrorMessageTypeConstant.NotFound, $"Error ID not exist: {id}"));
+            }
+            else
+            {
+                return Ok(quoteDetail);
+            }
+        }
     }
 }

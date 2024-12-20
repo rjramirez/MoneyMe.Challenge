@@ -4,7 +4,10 @@
 
 let QuoteCalculator = function () {
     let quoteCalculateEndpoint = "/home/QuoteCalculate";
+    let quoteDetailEndpoint = "/home/QuoteDetail";
+
     let btnSubmit = "#btnSubmit";
+    let btnEditDetails = "#btnEditDetails";
 
     return {
         stepper: null,
@@ -16,6 +19,32 @@ let QuoteCalculator = function () {
             });
 
             this.stepper = new Stepper(document.querySelector('.bs-stepper'));
+            
+
+            $(btnEditDetails).on("click", function () {
+                let quoteId = $("#hdnQuoteId");
+                QuoteCalculator.prepareEditDetailsModal(quoteId);
+            });
+
+
+        },
+        prepareEditDetailsModal: function (quoteId) {
+            App.showPreloader();
+            App.ajaxGet(quoteDetailEndpoint + quoteId
+                , "html"
+                , function (data) {
+                    QuoteCalculator.initializeModalContent(data);
+                    App.hidePreloader();
+                },
+                function (err) {
+                    App.hidePreloader();
+                }
+            );
+
+            $("#modalQuoteDetail").modal("show");
+        },
+        initializeModalContent: function (data) {
+            
         },
         clearValidation: function () {
             $("#selectProduct").removeClass("is-invalid");
@@ -62,6 +91,7 @@ let QuoteCalculator = function () {
 
             return true;
         },
+
         quoteCalculate: function () {
             let model = QuoteCalculator.createModel();
             if (QuoteCalculator.validateModel(model)) {
@@ -70,7 +100,7 @@ let QuoteCalculator = function () {
                     , JSON.stringify(model)
                     , "html"
                     , function (data) {
-                        QuoteCalculator.stepper.next(); //Go to Quote Detail
+                        QuoteCalculator.stepper.to(2);
                         $("#quotationDetailContainer").html(data);
 
                         App.alert("success", `Quote successfully created`);
