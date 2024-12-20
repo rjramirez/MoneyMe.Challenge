@@ -21,15 +21,15 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> QuotationCalculate(SaveQuote saveQuote)
+        public async Task<IActionResult> QuoteCalculate(SaveQuote saveQuote)
         {
             HttpClient client = _httpClientFactory.CreateClient("ProjectApiClient");
-            var quoteResponse = await client.PostAsync($"api/Quote/Calculate", saveQuote.GetStringContent());
+            var quoteResponse = await client.PostAsync($"api/Quote/save", saveQuote.GetStringContent());
 
             if (quoteResponse.IsSuccessStatusCode)
             {
-                ErrorLogDetail errorLogDetail = JsonConvert.DeserializeObject<ErrorLogDetail>(await quoteResponse.Content.ReadAsStringAsync());
-                return View(errorLogDetail);
+                QuoteDetail quoteDetail = JsonConvert.DeserializeObject<QuoteDetail>(await quoteResponse.Content.ReadAsStringAsync());
+                return View(quoteDetail);
             }
             else
             {

@@ -78,7 +78,7 @@ app.UseEndpoints(endpoints =>
         context.Response.ContentType = ApiHomePageConstant.ContentType;
         await context.Response.WriteAsync(
             string.Format(ApiHomePageConstant.ContentFormat,
-            identityServerApiDefinition.ApiName,
+            "MoneyMeAPI",
             app.Environment.EnvironmentName,
             context.Request.Scheme,
             context.Request.Host.Value,

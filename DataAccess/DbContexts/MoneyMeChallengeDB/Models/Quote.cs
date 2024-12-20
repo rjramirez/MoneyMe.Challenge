@@ -6,11 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.DBContexts.MoneyMeChallengeDB.Models
 {
-    [Keyless]
     [Table("Quote")]
     public partial class Quote
     {
-        [Column("QuoteID")]
+        [Key]
         public int QuoteId { get; set; }
         [Column(TypeName = "money")]
         public decimal Amount { get; set; }

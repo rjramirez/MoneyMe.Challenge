@@ -22,6 +22,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
+        [Route("save")]
         [SwaggerOperation(Summary = "Save Quotation")]
         public async Task<IActionResult> Calculate(SaveQuote saveQuote)
         {

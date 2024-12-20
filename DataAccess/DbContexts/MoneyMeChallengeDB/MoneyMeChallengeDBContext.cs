@@ -8,6 +8,10 @@ namespace DataAccess.DBContexts.MoneyMeChallengeDB
 {
     public partial class MoneyMeChallengeDBContext : DbContext
     {
+        public MoneyMeChallengeDBContext()
+        {
+        }
+
         public MoneyMeChallengeDBContext(DbContextOptions<MoneyMeChallengeDBContext> options)
             : base(options)
         {
@@ -27,6 +31,11 @@ namespace DataAccess.DBContexts.MoneyMeChallengeDB
                     .HasForeignKey(d => d.AuditTrailId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AuditTrailDetail_AuditTrail");
+            });
+
+            modelBuilder.Entity<Quote>(entity =>
+            {
+                entity.Property(e => e.QuoteId).ValueGeneratedNever();
             });
 
             OnModelCreatingPartial(modelBuilder);
