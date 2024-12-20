@@ -26,49 +26,59 @@ namespace WebAPI.Controllers
         [SwaggerOperation(Summary = "Save Quotation")]
         public async Task<IActionResult> Calculate(SaveQuote saveQuote)
         {
+            if (saveQuote == null)
+            {
+                return BadRequest("Invalid quote data.");
+            }
+
             Quote quote = new()
             {
                 Amount = saveQuote.Amount,
+                Term = saveQuote.Term,
                 Title = saveQuote.Title,
                 FirstName = saveQuote.FirstName,
                 LastName = saveQuote.LastName,
+                DateOfBirth = saveQuote.DateOfBirth,
                 Email = saveQuote.Email,
-                MobileNumber = saveQuote.MobileNumber
+                Mobile = saveQuote.Mobile,
+                CreatedBy = "rj@moneyme.com",
+                CreatedDate = DateTime.UtcNow,
+                Active = true
             };
 
             await _projectTemplateDBUnitOfWork.QuoteRepository.AddAsync(quote);
             await _projectTemplateDBUnitOfWork.SaveChangesAsync(saveQuote.Email);
 
-            return Ok();
+            return Ok(quote);
         }
 
-        [HttpGet("{id}")]
-        [SwaggerOperation(Summary = "Get Quotation details by ID")]
-        public async Task<ActionResult<QuoteDetail>> Get(int id)
-        {
-            QuoteDetail quoteDetail = await _projectTemplateDBUnitOfWork.QuoteRepository.
-                FirstOrDefaultAsync(selector: e => new QuoteDetail()
-                {
-                    QuoteId = id,
-                    Amount = e.Amount,
-                    Title = e.Title, 
-                    FirstName = e.FirstName,
-                    LastName = e.LastName,
-                    Email = e.Email,
-                    MobileNumber= e.MobileNumber
-                },
-                predicate: e => e.QuoteId == id);
+        //[HttpGet("{id}")]
+        //[SwaggerOperation(Summary = "Get Quotation details by ID")]
+        //public async Task<ActionResult<QuoteDetail>> Get(int id)
+        //{
+        //    QuoteDetail quoteDetail = await _projectTemplateDBUnitOfWork.QuoteRepository.
+        //        FirstOrDefaultAsync(selector: e => new QuoteDetail()
+        //        {
+        //            QuoteId = id,
+        //            FinanceAmount = e.Amount,
+        //            Title = e.Title, 
+        //            FirstName = e.FirstName,
+        //            LastName = e.LastName,
+        //            Email = e.Email,
+        //            Mobile= e.Mobile
+        //        },
+        //        predicate: e => e.QuoteId == id);
 
 
-            if (quoteDetail == null)
-            {
-                return NotFound(new ErrorMessage(ErrorMessageTypeConstant.NotFound, $"Error ID not exist: {id}"));
-            }
-            else
-            {
-                return Ok(quoteDetail);
-            }
-        }
+        //    if (quoteDetail == null)
+        //    {
+        //        return NotFound(new ErrorMessage(ErrorMessageTypeConstant.NotFound, $"Error ID not exist: {id}"));
+        //    }
+        //    else
+        //    {
+        //        return Ok(quoteDetail);
+        //    }
+        //}
 
         //[HttpGet]
         //[Route("QuoteListPagedSearch")]
@@ -84,7 +94,7 @@ namespace WebAPI.Controllers
         //            FirstName = e.FirstName,
         //            LastName = e.LastName,
         //            Email = e.Email,
-        //            MobileNumber = e.MobileNumber
+        //            Mobile = e.Mobile
         //        },
         //        predicate: e => ((commonSearchFilter.StartDate == null || e.DateCreated >= commonSearchFilter.StartDate) &&
         //                         (commonSearchFilter.EndDate == null || e.DateCreated <= commonSearchFilter.EndDate)) &&

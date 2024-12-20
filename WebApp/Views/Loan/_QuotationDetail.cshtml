@@ -1,0 +1,65 @@
+﻿@model WebApp.Models.Home.QuoteViewModel;
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Your Quote</h3>
+    </div>
+    <div class="card-body">
+        @if (Model != null)
+        {
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" class="form-control" value="@Model.FirstName @Model.LastName" readonly />
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile</label>
+                <input type="text" id="mobile" name="mobile" class="form-control" value="@Model.Mobile" readonly />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control" value="@Model.Email" readonly />
+            </div>
+            <button type="button" class="btn btn-secondary">Edit</button>
+        }
+        else
+        {
+            <p>No quote details available.</p>
+        }
+    </div>
+</div>
+
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">Finance Details</h3>
+    </div>
+    <div class="card-body">
+        @if (Model != null)
+        {
+            <div class="form-group">
+                <label for="financeAmount">Finance Amount</label>
+                <input type="text" id="financeAmount" name="financeAmount" class="form-control" value="@Model.Amount" readonly />
+            </div>
+            <div class="form-group">
+                <label for="loanTerm">Loan Term</label>
+                <input type="text" id="loanTerm" name="loanTerm" class="form-control" value="@Model.Term" readonly />
+            </div>
+            <div class="form-group">
+                <label for="monthlyRepaymentAmount">Monthly Repayment Amount</label>
+                <input type="text" id="monthlyRepaymentAmount" name="monthlyRepaymentAmount" class="form-control" value="@Model.MonthlyRepaymentAmount" readonly />
+            </div>
+        }
+        else
+        {
+            <p>No finance details available.</p>
+        }
+    </div>
+</div>
+
+<div class="form-group text-center">
+    <button type="button" class="btn btn-primary">Apply Now</button>
+</div>
+
+<div class="form-group text-center">
+    <p class="text-muted">* This is a sample disclaimer in gray font color.</p>
+</div>
+

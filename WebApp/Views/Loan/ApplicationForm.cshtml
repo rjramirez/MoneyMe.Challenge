@@ -1,0 +1,112 @@
+﻿@model WebApp.Models.Home.QuoteViewModel;
+
+<div class="container" id="loanApplicationContainer">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="bs-stepper" id="quote-stepper">
+                <div class="bs-stepper-header" role="tablist">
+                    <div class="step active" data-target="#quote-details-part">
+                        <button type="button" class="step-trigger" role="tab" aria-controls="quote-details-part" id="quote-details-part-trigger">
+                            <span class="bs-stepper-circle">1</span>
+                            <span class="bs-stepper-label">Quote Details</span>
+                        </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#final-details-part">
+                        <button type="button" class="step-trigger" role="tab" aria-controls="final-details-part" id="final-details-part-trigger">
+                            <span class="bs-stepper-circle">2</span>
+                            <span class="bs-stepper-label">Your Quotation</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="bs-stepper-content">
+                    <div id="quote-details-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="quote-details-part-trigger">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <form id="quote-form">
+                                    <!-- Product Selection -->
+                                    <div class="form-group">
+                                        <label for="selectProduct">Select Product</label>
+                                        <select id="selectProduct" name="selectProduct" class="form-control">
+                                            <option value="ProductA">ProductA (Interest FREE)</option>
+                                            <option value="ProductB">ProductB (2mos Interest FREE)</option>
+                                            <option value="ProductC">ProductC</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Amount Slider -->
+                                    <div class="form-group">
+                                        <label for="sliderAmount">How much do you need? (in USD)</label>
+                                        <input type="text" id="sliderAmount" name="sliderAmount" class="form-control" />
+                                    </div>
+
+                                    <div class="form-row">
+                                        <label for="selectTerm">Loan Term</label>
+                                        <select id="selectTerm" name="selectTerm" class="form-control">
+                                            <option value="6">6 months</option>
+                                            <option value="12">12 months</option>
+                                            <option value="24">24 months</option>
+                                            <option value="36">36 months</option>
+                                            <option value="48">48 months</option>
+                                            <option value="60">60 months</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Title, Firstname, Lastname, DateOfBirth -->
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="txtTitle">Title</label>
+                                            <select id="txtTitle" name="txtTitle" class="form-control">
+                                                <option value="Mr.">Mr.</option>
+                                                <option value="Ms.">Ms.</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="txtFirstName">First Name</label>
+                                            <input type="text" class="form-control" id="txtFirstName" name="txtFirstName">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="txtLastName">Last Name</label>
+                                            <input type="text" class="form-control" id="txtLastName" name="txtLastName">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="dpDateOfBirth">Date Of Birth</label>
+                                            <input type="date" class="form-control" id="dpDateOfBirth" name="dpDateOfBirth">
+                                        </div>
+                                    </div>
+
+                                    <!-- Email and Mobile Number -->
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="txtEmail">Email</label>
+                                            <input type="email" class="form-control" id="txtEmail" name="txtEmail">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="txtMobile">Mobile Number</label>
+                                            <input type="text" class="form-control" id="txtMobile" name="txtMobile">
+                                        </div>
+                                    </div>
+
+                                    <!-- Calculate Button -->
+                                    <div class="form-group">
+                                        <button type="button" id="btnSubmit" class="btn btn-primary">Compute</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="final-details-part" class="content" role="tabpanel" aria-labelledby="final-details-part-trigger">
+                        <div id="quotationDetailContainer">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Loan/_QuotationDetail.cshtml", Model);
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

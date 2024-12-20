@@ -28,16 +28,22 @@ namespace DataAccess.DBContexts.MoneyMeChallengeDB.Models
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         [Required]
-        [StringLength(20)]
-        [Unicode(false)]
-        public string MobileNumber { get; set; }
-        [Required]
         [StringLength(100)]
         [Unicode(false)]
         public string Email { get; set; }
+        [Required]
+        [StringLength(20)]
+        [Unicode(false)]
+        public string Mobile { get; set; }
+        [StringLength(50)]
+        public string UpdatedBy { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? UpdatedDate { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string CreatedBy { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedDate { get; set; }
+        public bool Active { get; set; }
     }
 }

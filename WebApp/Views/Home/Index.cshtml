@@ -2,62 +2,23 @@
     <link href="@Url.Content("~/lib/ion.rangeSlider/ion.rangeSlider.min.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="container pt-5">
-    <div class="card">
-        <div class="card-header">
-            <h3>Quote Calculator</h3>
-        </div>
-        <div class="card-body">
-            <form id="quote-form">
-                <!-- Slider: How much do you need? -->
-                <div class="form-group">
-                    <label for="sliderAmount">How much do you need? (in USD)</label>
-                    <input type="text" id="sliderAmount" name="sliderAmount" class="form-control" />
-                </div>
-
-                <!-- Title, Firstname, Lastname -->
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="txtTitle">Title</label>
-                        <select id="txtTitle" name="txtTitle" class="form-control">
-                            <option value="Mr.">Mr.</option>
-                            <option value="Ms.">Ms.</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="txtFirstName">First Name</label>
-                        <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" required>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="txtLastName">Last Name</label>
-                        <input type="text" class="form-control" id="txtLastName" name="txtLastName" required>
-                    </div>
-                </div>
-
-                <!-- Email and Mobile Number -->
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="txtEmail">Email</label>
-                        <input type="email" class="form-control" id="txtEmail" name="txtEmail" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="txtMobile">Mobile Number</label>
-                        <input type="text" class="form-control" id="txtMobile" name="txtMobile" required>
-                    </div>
-                </div>
-
-                <!-- Calculate Button -->
-                <div class="form-group">
-                    <button type="button" id="btnSubmit" class="btn btn-primary">Calculate</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
+@{
+    await Html.RenderPartialAsync("~/Views/Loan/ApplicationForm.cshtml");
+}
 
 @section Scripts {
     <script src="~/lib/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
     <script src="~/js/application/QuoteCalculator.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var today = new Date();
+            var eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+            var sixtyFiveYearsAgo = new Date(today.getFullYear() - 65, today.getMonth(), today.getDate());
+            var maxDate = eighteenYearsAgo.toISOString().split('T')[0];
+            var minDate = sixtyFiveYearsAgo.toISOString().split('T')[0];
+            var dateOfBirthInput = document.getElementById("dpDateOfBirth");
+            dateOfBirthInput.setAttribute("max", maxDate);
+            dateOfBirthInput.setAttribute("min", minDate);
+        });
+    </script>
 }
-

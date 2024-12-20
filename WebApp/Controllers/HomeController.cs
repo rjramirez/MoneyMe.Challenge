@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
 using WebApp.Extensions;
+using WebApp.Models.Home;
 
 namespace WebApp.Controllers
 {
@@ -21,15 +22,38 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> QuoteCalculate(SaveQuote saveQuote)
+        [HttpPost]
+        public async Task<IActionResult> QuoteCalculate([FromBody] SaveQuote saveQuote)
         {
             HttpClient client = _httpClientFactory.CreateClient("ProjectApiClient");
             var quoteResponse = await client.PostAsync($"api/Quote/save", saveQuote.GetStringContent());
 
             if (quoteResponse.IsSuccessStatusCode)
             {
-                QuoteDetail quoteDetail = JsonConvert.DeserializeObject<QuoteDetail>(await quoteResponse.Content.ReadAsStringAsync());
-                return View(quoteDetail);
+                var jsonSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                };
+
+                QuoteDetail quoteDetail = JsonConvert.DeserializeObject<QuoteDetail>(await quoteResponse.Content.ReadAsStringAsync(), jsonSettings);
+
+
+                QuoteViewModel quoteVM = new QuoteViewModel
+                {
+                    QuoteId = quoteDetail.QuoteId,
+                    Amount = quoteDetail.Amount,
+                    Term = quoteDetail.Term,
+                    MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount,
+                    FirstName = quoteDetail.FirstName,
+                    LastName = quoteDetail.LastName,
+                    Email = quoteDetail.Email,
+                    Mobile = quoteDetail.Mobile,
+                    CreatedDate = quoteDetail.CreatedDate,
+                    UpdatedDate = quoteDetail.UpdatedDate
+                };
+
+                return PartialView("~/Views/Loan/_QuotationDetail.cshtml", quoteVM);
             }
             else
             {
