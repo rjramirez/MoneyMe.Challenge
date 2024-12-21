@@ -4,8 +4,6 @@
 
 Welcome to the MoneyMe Challenge project! This solution is an Enterprise-grade architecture that uses UoW and Repository pattern that includes various functionalities such as calculating quotes, displaying quote details, and managing blacklists. Follow the instructions below to set up and run the project.
 
-## App Title and Description
-
 ### MoneyMe Challenge
 
 The MoneyMe Challenge is a financial application designed to help users calculate loan quotes, view detailed quote information, and manage blacklists. The application leverages AdminLTE v3.1 for the front-end, providing a modern and responsive user interface.
