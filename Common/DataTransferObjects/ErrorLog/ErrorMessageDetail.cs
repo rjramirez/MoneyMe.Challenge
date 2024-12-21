@@ -2,31 +2,31 @@
 
 namespace Common.DataTransferObjects.ErrorLog
 {
-    public class ErrorMessage
+    public class ErrorMessageDetail
     {
         public string TraceId { get; set; }
         public string Type { get; set; }
         public string Message { get; set; }
 
-        public ErrorMessage()
+        public ErrorMessageDetail()
         {
 
         }
 
-        public ErrorMessage(string traceId, string type, string message)
+        public ErrorMessageDetail(string traceId, string type, string message)
         {
             TraceId = traceId;
             Type = type;
             Message = message;
         }
 
-        public ErrorMessage(string type, string message)
+        public ErrorMessageDetail(string type, string message)
         {
             Type = type;
             Message = message;
         }
 
-        public ErrorMessage(string message)
+        public ErrorMessageDetail(string message)
         {
             Type = ErrorMessageTypeConstant.BadRequest;
             Message = message;

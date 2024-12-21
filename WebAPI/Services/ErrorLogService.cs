@@ -17,7 +17,7 @@ namespace WebAPI.Services
             _connectionString = configuration.GetConnectionString("ProjectTemplateDB");
         }
 
-        public async Task<ErrorMessage> LogApiError(HttpContext context)
+        public async Task<ErrorMessageDetail> LogApiError(HttpContext context)
         {
             IExceptionHandlerPathFeature errorHandler = context.Features.Get<IExceptionHandlerPathFeature>();
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;

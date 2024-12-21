@@ -74,7 +74,7 @@ namespace WebApp.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult StatusPage(ErrorMessage errorMessage, int code)
+        public IActionResult StatusPage(ErrorMessageDetail errorMessage, int code)
         {
             StatusPageViewModel model;
             if (string.IsNullOrEmpty(errorMessage.Type) && code != 0)
@@ -119,24 +119,24 @@ namespace WebApp.Controllers
             {
                 if (context.Error.GetType() == typeof(ArgumentException))
                 {
-                    ErrorMessage errorMessage = new(saveErrorLog.StackTraceId, ErrorMessageTypeConstant.ArgumentException, saveErrorLog.Message);
+                    ErrorMessageDetail errorMessage = new(saveErrorLog.StackTraceId, ErrorMessageTypeConstant.ArgumentException, saveErrorLog.Message);
                     return BadRequest(errorMessage);
                 }
                 else
                 {
-                    ErrorMessage errorMessage = new(saveErrorLog.StackTraceId, ErrorMessageTypeConstant.InternalServerException, null);
+                    ErrorMessageDetail errorMessage = new(saveErrorLog.StackTraceId, ErrorMessageTypeConstant.InternalServerException, null);
                     return BadRequest(errorMessage);
                 }
             }
 
             if (context.Error.GetType() == typeof(ArgumentException))
             {
-                ErrorMessage errorMessage = new(saveErrorLog.StackTraceId, ErrorMessageTypeConstant.ArgumentException, saveErrorLog.Message);
+                ErrorMessageDetail errorMessage = new(saveErrorLog.StackTraceId, ErrorMessageTypeConstant.ArgumentException, saveErrorLog.Message);
                 return RedirectToAction("StatusPage", "Error", errorMessage);
             }
             else
             {
-                ErrorMessage errorMessage = new(saveErrorLog.StackTraceId, ErrorMessageTypeConstant.InternalServerException, null);
+                ErrorMessageDetail errorMessage = new(saveErrorLog.StackTraceId, ErrorMessageTypeConstant.InternalServerException, null);
                 return RedirectToAction("StatusPage", "Error", errorMessage);
             }
         }

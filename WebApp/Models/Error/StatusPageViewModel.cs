@@ -17,7 +17,7 @@ namespace WebApp.Models.Error
 
         }
 
-        public StatusPageViewModel(ErrorMessage errorMessage)
+        public StatusPageViewModel(ErrorMessageDetail errorMessage)
         {
             TraceId = errorMessage.TraceId;
 

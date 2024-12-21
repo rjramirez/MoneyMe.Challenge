@@ -33,6 +33,7 @@
             decimal annualInterestRate = 0.10m; // Default 10% annual interest rate
             decimal monthlyInterestRate = annualInterestRate / 12;
             int termInMonths = Term; // Use Term directly as it is already a numeric type
+            decimal establishmentFee = 100m; // Establishment fee
 
             if (Product == "ProductA")
             {
@@ -42,7 +43,7 @@
             {
                 // First 2 months 0% interest, then 10% annual interest rate
                 int interestFreeMonths = 2;
-                decimal interestFreeRepayment = Amount / termInMonths;
+                decimal interestFreeRepayment = (Amount + establishmentFee) / termInMonths;
                 decimal remainingPrincipal = Amount - (interestFreeRepayment * interestFreeMonths);
                 int remainingTerm = termInMonths - interestFreeMonths;
 
@@ -57,7 +58,7 @@
                 }
             }
 
-            return CalculateAnnuityRepayment(Amount, monthlyInterestRate, termInMonths);
+            return CalculateAnnuityRepayment(Amount + establishmentFee, monthlyInterestRate, termInMonths);
         }
 
         private decimal CalculateAnnuityRepayment(decimal principal, decimal monthlyInterestRate, int termInMonths)

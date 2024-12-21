@@ -89,7 +89,7 @@ namespace WebAPI.Controllers
 
             if (quoteDetail == null)
             {
-                return NotFound(new ErrorMessage(ErrorMessageTypeConstant.NotFound, $"Error ID not exist: {id}"));
+                return NotFound(new ErrorMessageDetail(ErrorMessageTypeConstant.NotFound, $"Error ID not exist: {id}"));
             }
             else
             {

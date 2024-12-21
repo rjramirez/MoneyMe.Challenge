@@ -5,9 +5,9 @@ namespace WebApp.Extensions
 {
     public static class ResponseMessageExtension
     {
-        public static async Task<ErrorMessage> GetErrorMessage(this HttpResponseMessage httpResponseMessage)
+        public static async Task<ErrorMessageDetail> GetErrorMessage(this HttpResponseMessage httpResponseMessage)
         {
-            return JsonConvert.DeserializeObject<ErrorMessage>(await httpResponseMessage.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<ErrorMessageDetail>(await httpResponseMessage.Content.ReadAsStringAsync());
         }
     }
 }

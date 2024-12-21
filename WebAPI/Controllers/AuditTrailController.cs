@@ -72,7 +72,7 @@ namespace WebAPI.Controllers
 
             if (auditTrailLogDetail == null)
             {
-                return NotFound(new ErrorMessage(ErrorMessageTypeConstant.NotFound, $"AuditTrail ID not exist: {id}"));
+                return NotFound(new ErrorMessageDetail(ErrorMessageTypeConstant.NotFound, $"AuditTrail ID not exist: {id}"));
             }
             else
             {

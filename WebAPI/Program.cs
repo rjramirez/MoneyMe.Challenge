@@ -49,7 +49,7 @@ app.UseExceptionHandler(errorLogger =>
         var scoped = app.Services.CreateScope();
         IErrorLogService errorLogService = scoped.ServiceProvider.GetRequiredService<IErrorLogService>();
         context.Response.StatusCode = 500;
-        ErrorMessage unhandledErrorDetail = await errorLogService.LogApiError(context);
+        ErrorMessageDetail unhandledErrorDetail = await errorLogService.LogApiError(context);
         await context.Response.WriteAsync(JsonConvert.SerializeObject(unhandledErrorDetail));
     });
 });

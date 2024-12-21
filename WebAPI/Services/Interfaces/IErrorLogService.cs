@@ -4,6 +4,6 @@ namespace WebAPI.Services.Interfaces
 {
     public interface IErrorLogService
     {
-        Task<ErrorMessage> LogApiError(HttpContext context);
+        Task<ErrorMessageDetail> LogApiError(HttpContext context);
     }
 }
