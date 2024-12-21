@@ -9,6 +9,8 @@ let QuoteCalculator = function () {
     let btnSubmit = "#btnSubmit";
     let btnEditDetails = "#btnEditDetails";
 
+    let blackList = [];
+
     return {
         stepper: null,
         initialize: function () {
@@ -26,7 +28,23 @@ let QuoteCalculator = function () {
                 QuoteCalculator.prepareEditDetailsModal(quoteId);
             });
 
+            QuoteCalculator.prepareBlockList();
+        },
+        prepareBlockList: function () {
+            let url = "/home/GetBlackList";
 
+            App.addBoxSpinner("#card-quote-detail");
+            App.ajaxGet(url
+                , "json"
+                , function (response) {
+                    if (response.isSuccessful) {
+                        blackList = response.data
+                            .map(item => item.value || item.name)
+                            .filter(item => item);
+                    }
+                }
+            );
+            App.removeBoxSpinner("#card-quote-detail");
         },
         prepareEditDetailsModal: function (quoteId) {
             App.showPreloader();
@@ -42,9 +60,6 @@ let QuoteCalculator = function () {
             );
 
             $("#modalQuoteDetail").modal("show");
-        },
-        initializeModalContent: function (data) {
-            
         },
         clearValidation: function () {
             $("#selectProduct").removeClass("is-invalid");
@@ -80,9 +95,9 @@ let QuoteCalculator = function () {
             validationMessages = App.requiredTextValidator(model.FirstName, "FirstName is required", $("#txtFirstName"), validationMessages);
             validationMessages = App.requiredTextValidator(model.LastName, "LastName is required", $("#txtLastName"), validationMessages);
             validationMessages = App.requiredTextValidator(model.DateOfBirth, "Date Of Birth is required", $("#dpDateOfBirth"), validationMessages);
-            validationMessages = App.requiredTextValidator(model.Mobile, "Mobile is required", $("#txtMobile"), validationMessages);
+            validationMessages = App.requiredTextValidator(model.Mobile, "Mobile is required", $("#txtMobile"), validationMessages, blackList);
 
-            validationMessages = App.emailAddressValidator(model.Email, "Email is required", $("#txtEmail"), validationMessages);
+            validationMessages = App.emailAddressValidator(model.Email, "Email is required", $("#txtEmail"), validationMessages, blackList);
 
             if (validationMessages.length > 0) {
                 App.showValidationMessage(validationMessages);

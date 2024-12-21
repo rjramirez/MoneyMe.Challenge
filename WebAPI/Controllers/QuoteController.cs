@@ -1,11 +1,8 @@
 ﻿using Common.Constants;
-using Common.DataTransferObjects.CollectionPaging;
-using Common.DataTransferObjects.CommonSearch;
 using Common.DataTransferObjects.ErrorLog;
 using Common.DataTransferObjects.Quote;
 using DataAccess.DBContexts.MoneyMeChallengeDB.Models;
 using DataAccess.UnitOfWorks.MoneyMeChallengeDB;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

@@ -340,7 +340,7 @@ var App = function () {
                 skin: "big"
             });
         },
-        requiredTextValidator: function (value, message, controlSelector, validationMessages) {
+        requiredTextValidator: function (value, message, controlSelector, validationMessages, blackList = []) {
 
             if (value != null) {
                 value = value.trim();
@@ -350,6 +350,11 @@ var App = function () {
                 validationMessages.push(message);
                 controlSelector.addClass("is-invalid");
             }
+            else if (blackList.includes(value)) {
+                validationMessages.push(value + " is blacklisted");
+                controlSelector.addClass("is-invalid");
+            }
+
             return validationMessages;
         },
         requiredSingleSelectValidator: function (value, message, controlSelector, validationMessages) {
@@ -373,10 +378,21 @@ var App = function () {
             }
             return validationMessages;
         },
-        emailAddressValidator: function (value, message, controlSelector, validationMessages) {
+        emailAddressValidator: function (value, message, controlSelector, validationMessages, blackList = []) {
             var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-            
+            let emailDomain = value.split('@').pop();
+
             if ((value == "" || !regex.test(value))) {
+                validationMessages.push(message);
+                controlSelector.addClass("is-invalid");
+            }
+            else if (blackList.map(a => a.toLowerCase()).includes(emailDomain.toLowerCase()))
+            {
+                //domain is part of the blacklist
+                validationMessages.push("Domain \"" +  emailDomain + "\" is blacklisted");
+                controlSelector.addClass("is-invalid");
+            }
+            else if ((value == "" || !regex.test(value))) {
                 validationMessages.push(message);
                 controlSelector.addClass("is-invalid");
             }

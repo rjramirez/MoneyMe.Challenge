@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using DataAccess.DBContexts.MoneyMeChallengeDB.Models;
 
 namespace DataAccess.DBContexts.MoneyMeChallengeDB
@@ -15,6 +12,7 @@ namespace DataAccess.DBContexts.MoneyMeChallengeDB
 
         public virtual DbSet<AuditTrail> AuditTrails { get; set; }
         public virtual DbSet<AuditTrailDetail> AuditTrailDetails { get; set; }
+        public virtual DbSet<Blacklist> Blacklists { get; set; }
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
         public virtual DbSet<Quote> Quotes { get; set; }
 

@@ -8,5 +8,6 @@ namespace DataAccess.UnitOfWorks.MoneyMeChallengeDB
         public IErrorLogRepository ErrorLogRepository { get; }
         public IAuditTrailRepository AuditTrailRepository { get; }
         public IQuoteRepository QuoteRepository { get; }
+        public IBlacklistRepository BlacklistRepository { get; }
     }
 }

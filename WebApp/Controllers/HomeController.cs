@@ -1,5 +1,7 @@
-﻿using Common.DataTransferObjects.ErrorLog;
+﻿using Common.Constants;
+using Common.DataTransferObjects.ErrorLog;
 using Common.DataTransferObjects.Quote;
+using Common.DataTransferObjects.ReferenceData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,10 +13,10 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _httpClientMoneyMe;
         public HomeController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+            _httpClientMoneyMe = httpClientFactory.CreateClient(HttpNamedClientConstant.ProjectApiClient);
         }
 
         public IActionResult Index()
@@ -25,8 +27,8 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> QuoteCalculate([FromBody] SaveQuote saveQuote)
         {
-            HttpClient client = _httpClientFactory.CreateClient("ProjectApiClient");
-            var quoteResponse = await client.PostAsync($"api/Quote/save", saveQuote.GetStringContent());
+            
+            var quoteResponse = await _httpClientMoneyMe.PostAsync($"api/Quote/save", saveQuote.GetStringContent());
 
             if (quoteResponse.IsSuccessStatusCode)
             {
@@ -37,7 +39,6 @@ namespace WebApp.Controllers
                 };
 
                 QuoteDetail quoteDetail = JsonConvert.DeserializeObject<QuoteDetail>(await quoteResponse.Content.ReadAsStringAsync(), jsonSettings);
-
 
                 QuoteViewModel quoteVM = new QuoteViewModel
                 {
@@ -64,8 +65,7 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> QuoteDetail(int id)
         {
-            HttpClient client = _httpClientFactory.CreateClient("ProjectApiClient");
-            var response = await client.GetAsync($"api/Quote/{id}");
+            var response = await _httpClientMoneyMe.GetAsync($"api/Quote/{id}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -75,6 +75,34 @@ namespace WebApp.Controllers
             else
             {
                 return RedirectToAction("StatusPage", "Error", await response.GetErrorMessage());
+            }
+        }
+
+        public async Task<IActionResult> GetBlackList()
+        {
+            BlacklistViewModel blacklistVM = new();
+
+            var response = await _httpClientMoneyMe.GetAsync($"api/Blacklist/GetBlackList");
+
+            if (response.IsSuccessStatusCode)
+            {
+                IEnumerable<ReferenceDataDetail> blacklistDetailList = JsonConvert.DeserializeObject<IEnumerable<ReferenceDataDetail>>(await response.Content.ReadAsStringAsync());
+                
+                return Ok(new
+                {
+                    IsSuccessful = true,
+                    Message = "Blacklists found",
+                    Data = blacklistDetailList
+                });
+            }
+            else
+            {
+                return Ok(new
+                {
+                    IsSuccessful = false,
+                    Message = "No available blacklist",
+                    Data = new BlacklistViewModel()
+                });
             }
         }
 
