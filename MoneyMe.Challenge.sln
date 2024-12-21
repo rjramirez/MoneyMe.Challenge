@@ -30,7 +30,12 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MoneyMeChallenge", "MoneyMe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{6A1D28C1-4B76-4D96-BE68-A95AE18EFC0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyMeChallenge.Test", "MoneyMeChallenge.Test\MoneyMeChallenge.Test.csproj", "{067BD034-8C2A-4824-9E32-63074069A172}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuoteTest", "Test\QuoteTest.csproj", "{067BD034-8C2A-4824-9E32-63074069A172}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D932903-FEB2-414E-99C5-F82C901AF9FA}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
