@@ -57,8 +57,10 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Snapshots" />
+    <Folder Include="Backups" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Snapshots\MoneyMeChallenge_20241221_23-00-25.dacpac" />
+    <None Include="Backups\MoneyMeChallenge.bak" />
   </ItemGroup>
 </Project>
