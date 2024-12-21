@@ -1,14 +1,9 @@
 using Common.DataTransferObjects.AppSettings;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 /* CONFIGURE SERVICES CONTAINER */
-IdentityServerClientDefinition identityServerClientDefinition = new();
-builder.Configuration.Bind("IdentityServerClientDefinition", identityServerClientDefinition);
-builder.Services.AddSingleton(identityServerClientDefinition);
-
 ApiResourceUrl apiResourceUrl = new();
 builder.Configuration.Bind("ApiResourceUrl", apiResourceUrl);
 builder.Services.AddSingleton(apiResourceUrl);

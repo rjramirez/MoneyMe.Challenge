@@ -15,11 +15,7 @@ using WebAPI.Services.Interfaces;
 /*SERVICES CONTAINER*/
 var builder = WebApplication.CreateBuilder(args);
 
-IdentityServerApiDefinition identityServerApiDefinition = new();
-builder.Configuration.Bind("IdentityServerApiDefinition", identityServerApiDefinition);
-builder.Services.AddSingleton(identityServerApiDefinition);
-
-ApiServices.ConfigureServices(builder.Services, identityServerApiDefinition);
+ApiServices.ConfigureServices(builder.Services);
 
 //Api Policy Authorization
 //builder.Services.AddAuthorization(options =>

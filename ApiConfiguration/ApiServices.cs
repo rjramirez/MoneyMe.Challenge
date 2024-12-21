@@ -1,11 +1,9 @@
 ﻿using Common.Constants;
-using Common.DataTransferObjects.AppSettings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -13,20 +11,9 @@ namespace ApiConfiguration
 {
     public static class ApiServices
     {
-        public static void ConfigureServices(IServiceCollection services, IdentityServerApiDefinition identityServerApiDefinition)
+        public static void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            //Identity Server Authorization
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", config =>
-                {
-                    config.Authority = identityServerApiDefinition.Authority;
-                    config.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidAudience = identityServerApiDefinition.ApiName,
-                    };
-                });
 
             //Api Versioning
             services.AddApiVersioning(cfg =>
@@ -80,13 +67,10 @@ namespace ApiConfiguration
     internal class ApiDocumentation : IConfigureOptions<SwaggerGenOptions>
     {
         private readonly IApiVersionDescriptionProvider _apiVersionDescriptionProvider;
-        private readonly IdentityServerApiDefinition _identityServerApiDefinition;
 
-        public ApiDocumentation(IApiVersionDescriptionProvider apiVersionDescriptionProvider,
-            IdentityServerApiDefinition identityServerApiDefinition)
+        public ApiDocumentation(IApiVersionDescriptionProvider apiVersionDescriptionProvider)
         {
             _apiVersionDescriptionProvider = apiVersionDescriptionProvider;
-            _identityServerApiDefinition = identityServerApiDefinition;
         }
 
         public void Configure(SwaggerGenOptions options)
@@ -97,7 +81,7 @@ namespace ApiConfiguration
                   description.GroupName,
                     new OpenApiInfo()
                     {
-                        Title = _identityServerApiDefinition.ApiName + $" V{ description.ApiVersion}",
+                        Title = $"MoneyMeAPI V{ description.ApiVersion}",
                         Version = description.ApiVersion.ToString()
                     });
             }
