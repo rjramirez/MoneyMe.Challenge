@@ -3,6 +3,7 @@
     public class QuoteDetail
     {
         public int QuoteId { get; set; }
+        //TODO: Make it an enum or a reference table
         public string Product { get; set; }
         public short Term { get; set; }
         public decimal Amount { get; set; }

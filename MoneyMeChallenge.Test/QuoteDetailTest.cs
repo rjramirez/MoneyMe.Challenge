@@ -13,11 +13,13 @@
                 Term = 12
             };
 
+            var establishmentFee = 100m;
+
             // Act
             var monthlyRepayment = quoteDetail.MonthlyRepaymentAmount;
 
             // Assert
-            decimal expectedRepayment = (1000m + 100m) / 12m; // Amount + Establishment Fee / Term
+            decimal expectedRepayment = (1000m + establishmentFee) / 12m; // Amount + Establishment Fee / Term
             Assert.Equal(Math.Round(expectedRepayment, 2), Math.Round(monthlyRepayment, 2));
         }
 
