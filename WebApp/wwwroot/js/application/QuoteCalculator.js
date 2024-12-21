@@ -8,6 +8,7 @@ let QuoteCalculator = function () {
 
     let btnSubmit = "#btnSubmit";
     let btnEditDetails = "#btnEditDetails";
+    let btnQuoteDetailModalSave = "#btnQuoteDetailModalSave";
 
     let blackList = [];
 
@@ -22,12 +23,6 @@ let QuoteCalculator = function () {
 
             this.stepper = new Stepper(document.querySelector('.bs-stepper'));
             
-
-            $(btnEditDetails).on("click", function () {
-                let quoteId = $("#hdnQuoteId");
-                QuoteCalculator.prepareEditDetailsModal(quoteId);
-            });
-
             QuoteCalculator.prepareBlockList();
         },
         prepareBlockList: function () {
@@ -52,6 +47,13 @@ let QuoteCalculator = function () {
                 , "html"
                 , function (data) {
                     QuoteCalculator.initializeModalContent(data);
+
+                    
+                    $(btnQuoteDetailModalSave).on("click", function () {
+                        let quoteId = $("#hdnQuoteId");
+                        QuoteCalculator.quoteEditCalculate(quoteId);
+                    });
+
                     App.hidePreloader();
                 },
                 function (err) {
@@ -120,6 +122,11 @@ let QuoteCalculator = function () {
 
                         App.alert("success", `Quote successfully created`);
 
+                        $(btnEditDetails).on("click", function () {
+                            let quoteId = $("#hdnQuoteId");
+                            QuoteCalculator.prepareEditDetailsModal(quoteId);
+                        });
+
                         App.hidePreloader();
                         
                     }
@@ -128,6 +135,33 @@ let QuoteCalculator = function () {
                     }
                 );
             }
+
+            quoteEditCalculate: function () {
+                let model = QuoteCalculator.createModel();
+                if (QuoteCalculator.validateModel(model)) {
+                    App.showPreloader();
+                    App.ajaxPost(quoteCalculateEndpoint
+                        , JSON.stringify(model)
+                        , "html"
+                        , function (data) {
+                            QuoteCalculator.stepper.to(2);
+                            $("#quotationDetailContainer").html(data);
+
+                            App.alert("success", `Quote successfully created`);
+
+                            $(btnEditDetails).on("click", function () {
+                                let quoteId = $("#hdnQuoteId");
+                                QuoteCalculator.prepareEditDetailsModal(quoteId);
+                            });
+
+                            App.hidePreloader();
+
+                        }
+                        , function (err) {
+                            App.hidePreloader();
+                        }
+                    );
+                }
         }
     }
 }();
