@@ -31,7 +31,7 @@ namespace WebAPI.Tests.Controllers
             SaveQuote? saveQuote = null;
 
             // Act
-            var result = await _controller.Calculate(saveQuote);
+            var result = await _controller.Create(saveQuote);
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -58,7 +58,7 @@ namespace WebAPI.Tests.Controllers
             _mockUnitOfWork.Setup(uow => uow.SaveChangesAsync(It.IsAny<string>())).ReturnsAsync(1);
 
             // Act
-            var result = await _controller.Calculate(saveQuote);
+            var result = await _controller.Create(saveQuote);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
