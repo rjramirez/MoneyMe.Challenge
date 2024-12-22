@@ -72,89 +72,9 @@
         </p>
     </div>
 
-    <div id="modalQuoteDetail" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content" id="divMyQuoteModalCard">
-                <div class="modal-header">
-                    <h5 class="modal-title"><span id="spnQuoteDetailModalTitle">Title</span></h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="divQuoteDetailModalBody">
-                    <div class="card">
-                        <div class="card-body">
-                            <form id="quote-form">
-                                <!-- Product Selection -->
-                                <div class="form-group">
-                                    <label for="selectProduct">Select Product</label>
-                                    <select id="selectProduct" name="selectProduct" class="form-control">
-                                        <option value="ProductA" selected=@(Model.Product == "ProductA" ? "selected" : "")>ProductA (Interest FREE)</option>
-                                        <option value="ProductB" selected=@(Model.Product == "ProductB" ? "selected" : "")>ProductB (2mos Interest FREE)</option>
-                                        <option value="ProductC" selected=@(Model.Product == "ProductC" ? "selected" : "")>ProductC</option>
-                                    </select>
-                                </div>
-
-                                <!-- Amount Slider -->
-                                <div class="form-group">
-                                    <label for="sliderAmount">How much do you need? (in USD)</label>
-                                    <input type="text" id="sliderAmount" name="sliderAmount" class="form-control" value="@Model.Amount" />
-                                </div>
-
-                                <div class="form-row">
-                                    <label for="selectTerm">Loan Term</label>
-                                    <select id="selectTerm" name="selectTerm" class="form-control">
-                                        <option value="6" selected=@(Model.Term == 6 ? "selected" : "")>6 months</option>
-                                        <option value="12" selected=@(Model.Term == 12 ? "selected" : "")>12 months</option>
-                                        <option value="24" selected=@(Model.Term == 24 ? "selected" : "")>24 months</option>
-                                        <option value="36" selected=@(Model.Term == 36 ? "selected" : "")>36 months</option>
-                                        <option value="48" selected=@(Model.Term == 48 ? "selected" : "")>48 months</option>
-                                        <option value="60" selected=@(Model.Term == 60 ? "selected" : "")>60 months</option>
-                                    </select>
-                                </div>
-
-                                <!-- Title, Firstname, Lastname, DateOfBirth -->
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="txtTitle">Title</label>
-                                        <select id="txtTitle" name="txtTitle" class="form-control">
-                                            <option value="Mr." selected=@(Model.Title == "Mr." ? "selected" : "")>Mr.</option>
-                                            <option value="Ms." selected=@(Model.Title == "Ms." ? "selected" : "")>Ms.</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="txtFirstName">First Name</label>
-                                        <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" value="@Model.FirstName">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="txtLastName">Last Name</label>
-                                        <input type="text" class="form-control" id="txtLastName" name="txtLastName" value="@Model.LastName">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="dpDateOfBirth">Date Of Birth</label>
-                                        <input type="date" class="form-control" id="dpDateOfBirth" name="dpDateOfBirth" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")">
-                                    </div>
-                                </div>
-
-                                <!-- Email and Mobile Number -->
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="txtEmail">Email</label>
-                                        <input type="email" class="form-control" id="txtEmail" name="txtEmail" value="@Model.Email">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="txtMobile">Mobile Number</label>
-                                        <input type="text" class="form-control" id="txtMobile" name="txtMobile" value="@Model.Mobile">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="btnQuoteDetailModalSave" type="button" class="btn btn-primary btn-sm"><span class="fa fa-save"></span> Submit</button>
-                </div>
-            </div>
-        </div>
+    <div id="quotationDetailModalContainer">
+        @{
+            await Html.RenderPartialAsync("~/Views/Loan/_QuotationDetailModal.cshtml", Model);
+        }
     </div>
 }

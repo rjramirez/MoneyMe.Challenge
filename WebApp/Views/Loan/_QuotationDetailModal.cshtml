@@ -1,0 +1,92 @@
+﻿@model WebApp.Models.Home.QuoteViewModel;
+
+@if (Model != null)
+{
+    <div id="modalQuoteDetail" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="divMyQuoteModalCard">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span id="spnQuoteDetailModalTitle">Edit Request for Quote</span></h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="divQuoteDetailModalBody">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="quote-form">
+                                <!-- Product Selection -->
+                                <div class="form-group">
+                                    <label for="selectProductEdit">Select Product</label>
+                                    <select id="selectProductEdit" asp-for="Product" class="form-control">
+                                        <option value="ProductA">ProductA (Interest FREE)</option>
+                                        <option value="ProductB">ProductB (2mos Interest FREE)</option>
+                                        <option value="ProductC">ProductC</option>
+                                    </select>
+                                </div>
+
+                                <!-- Amount Slider -->
+                                <div class="form-group">
+                                    <label for="sliderAmountEdit">How much do you need? (in USD)</label>
+                                    <input type="text" id="sliderAmountEdit" name="sliderAmountEdit" class="form-control" value="@Model.Amount" />
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="selectTermEdit">Loan Term</label>
+                                        <select id="selectTermEdit" asp-for="Term" class="form-control">
+                                            <option value="6">6 months</option>
+                                            <option value="12">12 months</option>
+                                            <option value="24">24 months</option>
+                                            <option value="36">36 months</option>
+                                            <option value="48">48 months</option>
+                                            <option value="60">60 months</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Title, Firstname, Lastname, DateOfBirth -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="txtTitleEdit">Title</label>
+                                        <select id="txtTitleEdit" asp-for="Title" class="form-control">
+                                            <option value="Mr.">Mr.</option>
+                                            <option value="Ms.">Ms.</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="txtFirstNameEdit">First Name</label>
+                                        <input type="text" class="form-control" id="txtFirstNameEdit" asp-for="FirstName" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="txtLastNameEdit">Last Name</label>
+                                        <input type="text" class="form-control" id="txtLastNameEdit" asp-for="LastName" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="dpDateOfBirthEdit">Date Of Birth</label>
+                                        <input type="date" class="form-control" id="dpDateOfBirthEdit" asp-for="DateOfBirth" />
+                                    </div>
+                                </div>
+
+                                <!-- Email and Mobile Number -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="txtEmail">Email</label>
+                                        <input type="email" class="form-control" id="txtEmailEdit" asp-for="Email" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="txtMobile">Mobile Number</label>
+                                        <input type="text" class="form-control" id="txtMobileEdit" asp-for="Mobile" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnQuoteDetailModalSave" type="button" class="btn btn-primary btn-sm"><span class="fa fa-save"></span> Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

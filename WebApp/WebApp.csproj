@@ -27,4 +27,11 @@
     <Folder Include="wwwroot\lib\ion.RangeSlider\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Loan\_QuotationDetailModal.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

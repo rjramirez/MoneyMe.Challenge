@@ -47,8 +47,10 @@ namespace WebApp.Controllers
                     Amount = quoteDetail.Amount,
                     Term = quoteDetail.Term,
                     MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount,
+                    Title = quoteDetail.Title,
                     FirstName = quoteDetail.FirstName,
                     LastName = quoteDetail.LastName,
+                    DateOfBirth = quoteDetail.DateOfBirth,
                     Email = quoteDetail.Email,
                     Mobile = quoteDetail.Mobile,
                     CreatedDate = quoteDetail.CreatedDate,
@@ -56,6 +58,47 @@ namespace WebApp.Controllers
                 };
 
                 return PartialView("~/Views/Loan/_QuotationDetail.cshtml", quoteVM);
+            }
+            else
+            {
+                return RedirectToAction("StatusPage", "Error", await quoteResponse.GetErrorMessage());
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> QuoteUpdateCalculate([FromBody] SaveQuote saveQuote)
+        {
+
+            var quoteResponse = await _httpClientMoneyMe.PutAsync($"api/Quote/update", saveQuote.GetStringContent());
+
+            if (quoteResponse.IsSuccessStatusCode)
+            {
+                var jsonSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                };
+
+                QuoteDetail quoteDetail = JsonConvert.DeserializeObject<QuoteDetail>(await quoteResponse.Content.ReadAsStringAsync(), jsonSettings);
+
+                QuoteViewModel quoteVM = new QuoteViewModel
+                {
+                    QuoteId = quoteDetail.QuoteId,
+                    Product = quoteDetail.Product,
+                    Amount = quoteDetail.Amount,
+                    Term = quoteDetail.Term,
+                    MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount,
+                    Title = quoteDetail.Title,
+                    FirstName = quoteDetail.FirstName,
+                    LastName = quoteDetail.LastName,
+                    DateOfBirth = quoteDetail.DateOfBirth,
+                    Email = quoteDetail.Email,
+                    Mobile = quoteDetail.Mobile,
+                    CreatedDate = quoteDetail.CreatedDate,
+                    UpdatedDate = quoteDetail.UpdatedDate
+                };
+
+                return PartialView("~/Views/Loan/_QuotationDetailModal.cshtml", quoteVM);
             }
             else
             {

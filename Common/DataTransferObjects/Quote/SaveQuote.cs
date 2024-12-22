@@ -5,6 +5,7 @@ namespace Common.DataTransferObjects.Quote
 {
     public class SaveQuote : SaveDTOExtension
     {
+        public int QuoteId { get; set; }
         public string Product { get; set; }
         public decimal Amount { get; set; }
         public short Term { get; set; }

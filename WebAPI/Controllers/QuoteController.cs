@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         [Route("save")]
         [SwaggerOperation(Summary = "Save Quotation")]
-        public async Task<IActionResult> Calculate(SaveQuote saveQuote)
+        public async Task<IActionResult> Create(SaveQuote saveQuote)
         {
             if (saveQuote == null)
             {
@@ -39,7 +39,6 @@ namespace WebAPI.Controllers
                 DateOfBirth = saveQuote.DateOfBirth,
                 Email = saveQuote.Email,
                 Mobile = saveQuote.Mobile,
-                CreatedDate = DateTime.UtcNow,
             };
 
             Quote quote = new()
@@ -54,7 +53,7 @@ namespace WebAPI.Controllers
                 Email = quoteDetail.Email,
                 Mobile = quoteDetail.Mobile,
                 MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount,
-                CreatedBy = "rj@moneyme.com",
+                CreatedBy = quoteDetail.Email,
                 CreatedDate = DateTime.UtcNow,
                 Active = true
             };
@@ -63,6 +62,43 @@ namespace WebAPI.Controllers
             await _projectTemplateDBUnitOfWork.SaveChangesAsync(saveQuote.Email);
 
             return Ok(quote);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        [SwaggerOperation(Summary = "Update Quotation")]
+        public async Task<IActionResult> Update(SaveQuote saveQuote)
+        {
+            if (saveQuote == null || saveQuote.QuoteId == 0)
+            {
+                return BadRequest("Invalid quote data.");
+            }
+
+            QuoteDetail quoteDetail = new QuoteDetail
+            {
+                Product = saveQuote.Product,
+                Amount = saveQuote.Amount,
+                Term = saveQuote.Term
+            };
+
+            Quote quoteDetailExisting = await _projectTemplateDBUnitOfWork.QuoteRepository.FirstOrDefaultAsync(e => e.QuoteId == saveQuote.QuoteId);
+            
+            quoteDetailExisting.Product = saveQuote.Product;
+            quoteDetailExisting.Amount = saveQuote.Amount;
+            quoteDetailExisting.MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount;
+            quoteDetailExisting.Term = saveQuote.Term;
+            quoteDetailExisting.Title = saveQuote.Title;
+            quoteDetailExisting.FirstName = saveQuote.FirstName;
+            quoteDetailExisting.LastName = saveQuote.LastName;
+            quoteDetailExisting.DateOfBirth = saveQuote.DateOfBirth;
+            quoteDetailExisting.Email = saveQuote.Email;
+            quoteDetailExisting.Mobile = saveQuote.Mobile;
+            quoteDetailExisting.UpdatedBy = saveQuote.Email;
+            quoteDetailExisting.UpdatedDate = DateTime.UtcNow;
+
+            await _projectTemplateDBUnitOfWork.SaveChangesAsync(saveQuote.Email);
+
+            return Ok(quoteDetailExisting);
         }
 
         [HttpGet("{id}")]
