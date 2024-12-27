@@ -9,16 +9,4 @@
 @section Scripts {
     <script src="~/lib/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
     <script src="~/js/application/QuoteCalculator.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var today = new Date();
-            var eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
-            var sixtyFiveYearsAgo = new Date(today.getFullYear() - 65, today.getMonth(), today.getDate());
-            var maxDate = eighteenYearsAgo.toISOString().split('T')[0];
-            var minDate = sixtyFiveYearsAgo.toISOString().split('T')[0];
-            var dateOfBirthInput = document.getElementById("dpDateOfBirth");
-            dateOfBirthInput.setAttribute("max", maxDate);
-            dateOfBirthInput.setAttribute("min", minDate);
-        });
-    </script>
 }

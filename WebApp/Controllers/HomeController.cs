@@ -98,7 +98,7 @@ namespace WebApp.Controllers
                     UpdatedDate = quoteDetail.UpdatedDate
                 };
 
-                return PartialView("~/Views/Loan/_QuotationDetailModal.cshtml", quoteVM);
+                return PartialView("~/Views/Loan/_QuotationDetail.cshtml", quoteVM);
             }
             else
             {

@@ -25,6 +25,15 @@ let QuoteCalculator = function () {
             this.stepper = new Stepper(document.querySelector('.bs-stepper'));
             
             QuoteCalculator.prepareBlockList();
+
+            var today = new Date();
+            var eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+            var sixtyFiveYearsAgo = new Date(today.getFullYear() - 65, today.getMonth(), today.getDate());
+            var maxDate = eighteenYearsAgo.toISOString().split('T')[0];
+            var minDate = sixtyFiveYearsAgo.toISOString().split('T')[0];
+            var dateOfBirthInput = document.getElementById("dpDateOfBirth");
+            dateOfBirthInput.setAttribute("max", maxDate);
+            dateOfBirthInput.setAttribute("min", minDate);
         },
         prepareBlockList: function () {
             let url = "/home/GetBlackList";
@@ -187,15 +196,23 @@ let QuoteCalculator = function () {
                     , JSON.stringify(model)
                     , "html"
                     , function (data) {
-                        $("#quotationDetailModalContainer").html(data);
-                        $("#modalQuoteDetail").modal("show");
                         App.alert("success", `Quote updated successfully`);
-                        App.hidePreloader();
+                        $("#modalQuoteDetail").modal("hide");
+                        $("#quotationDetailContainer").html(data);
+
+                        $("#modalQuoteDetail").modal("show");
+
+                        $(btnEditDetails).on("click", function () {
+                            let quoteId = $("#hdnQuoteId");
+                            QuoteCalculator.prepareEditDetailsModal(quoteId);
+                        });
 
                         $(btnQuoteDetailModalSave).on("click", function () {
                             let quoteId = $("#hdnQuoteId");
                             QuoteCalculator.quoteEditCalculate(quoteId);
                         });
+
+                        App.hidePreloader();
                     }
                     , function (err) {
                         App.hidePreloader();
