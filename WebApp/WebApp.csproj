@@ -18,13 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClientConfiguration\ClientConfiguration.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Models\Layout\" />
     <Folder Include="Views\Error\" />
     <Folder Include="wwwroot\lib\ion.RangeSlider\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
