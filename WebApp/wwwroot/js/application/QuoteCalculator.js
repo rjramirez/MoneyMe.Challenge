@@ -187,10 +187,15 @@ let QuoteCalculator = function () {
                     , JSON.stringify(model)
                     , "html"
                     , function (data) {
-                        App.hidePreloader();
-                        App.alert("success", `Quote updated successfully`);
-                        $("#modalQuoteDetail").modal("show");
                         $("#quotationDetailModalContainer").html(data);
+                        $("#modalQuoteDetail").modal("show");
+                        App.alert("success", `Quote updated successfully`);
+                        App.hidePreloader();
+
+                        $(btnQuoteDetailModalSave).on("click", function () {
+                            let quoteId = $("#hdnQuoteId");
+                            QuoteCalculator.quoteEditCalculate(quoteId);
+                        });
                     }
                     , function (err) {
                         App.hidePreloader();
