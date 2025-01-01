@@ -1,4 +1,5 @@
 # MoneyMe Challenge
+[![.NET](https://github.com/rjramirez/MoneyMe.Challenge/actions/workflows/dotnet.yml/badge.svg)](https://github.com/rjramirez/MoneyMe.Challenge/actions/workflows/dotnet.yml)
 
 ## Welcome to the MoneyMe Challenge
 
