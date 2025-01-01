@@ -27,4 +27,9 @@ jobs:
       run: dotnet restore --ignore-failed-sources
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: |
+        for proj in $(find . -name '*.csproj'); do
+          if [[ $proj != *".sqlproj" ]]; then
+            dotnet build "$proj" --configuration Release --no-restore
+          fi
+        done
