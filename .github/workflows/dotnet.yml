@@ -21,10 +21,15 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0.x'
+        dotnet-version: '8.0.x'
 
     - name: Restore dependencies
       run: dotnet restore --ignore-failed-sources
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore --exclude *.sqlproj
+      run: |
+        for proj in $(find . -name '*.csproj'); do
+          if [[ $proj != *".sqlproj" ]]; then
+            dotnet build "$proj" --configuration Release --no-restore
+          fi
+        done
