@@ -1,4 +1,5 @@
 # MoneyMe Challenge
+[![.NET](https://github.com/rjramirez/MoneyMe.Challenge/actions/workflows/dotnet.yml/badge.svg)](https://github.com/rjramirez/MoneyMe.Challenge/actions/workflows/dotnet.yml)
 
 ## Welcome to the MoneyMe Challenge
 
@@ -7,6 +8,12 @@ Welcome to the MoneyMe Challenge project! This solution is an Enterprise-grade a
 ### MoneyMe Challenge
 
 The MoneyMe Challenge is a financial application designed to help users calculate loan quotes, view detailed quote information, and manage blacklists. The application leverages AdminLTE v3.1 for the front-end, providing a modern and responsive user interface.
+
+## Software Details
+Design: Domain Driven, Database-first
+Type: Microservices
+Patterns: Unit of Work(UoW), Repository
+
 
 ## Getting Started
 
