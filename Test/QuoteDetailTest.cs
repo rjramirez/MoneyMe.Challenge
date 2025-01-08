@@ -9,7 +9,7 @@
             var quoteDetail = new QuoteDetail
             {
                 Product = "ProductA",
-                Amount = 1000,
+                AmountRequired = 1000,
                 Term = 12
             };
 
@@ -30,7 +30,7 @@
             var quoteDetail = new QuoteDetail
             {
                 Product = "ProductB",
-                Amount = 1000,
+                AmountRequired = 1000,
                 Term = 12
             };
 

@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
             QuoteDetail quoteDetail = new QuoteDetail
             {
                 Product = saveQuote.Product,
-                Amount = saveQuote.Amount,
+                AmountRequired = saveQuote.Amount,
                 Term = saveQuote.Term,
                 Title = saveQuote.Title,
                 FirstName = saveQuote.FirstName,
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
             Quote quote = new()
             {
                 Product = quoteDetail.Product,
-                Amount = quoteDetail.Amount,
+                Amount = quoteDetail.AmountRequired,
                 Term = quoteDetail.Term,
                 Title = quoteDetail.Title,
                 FirstName = quoteDetail.FirstName,
@@ -77,7 +77,7 @@ namespace WebAPI.Controllers
             QuoteDetail quoteDetail = new QuoteDetail
             {
                 Product = saveQuote.Product,
-                Amount = saveQuote.Amount,
+                AmountRequired = saveQuote.Amount,
                 Term = saveQuote.Term
             };
 
@@ -111,7 +111,7 @@ namespace WebAPI.Controllers
                     QuoteId = id,
                     Product = e.Product,
                     Term = e.Term,
-                    Amount = e.Amount,
+                    AmountRequired = e.Amount,
                     MonthlyRepaymentAmount = e.MonthlyRepaymentAmount,
                     Title = e.Title,
                     FirstName = e.FirstName,

@@ -6,7 +6,7 @@
         //TODO: Make it an enum or a reference table
         public string Product { get; set; }
         public short Term { get; set; }
-        public decimal Amount { get; set; }
+        public decimal AmountRequired { get; set; }
         public string Title { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -44,8 +44,8 @@
             {
                 // First 2 months 0% interest, then 10% annual interest rate
                 int interestFreeMonths = 2;
-                decimal interestFreeRepayment = (Amount + establishmentFee) / termInMonths;
-                decimal remainingPrincipal = Amount - (interestFreeRepayment * interestFreeMonths);
+                decimal interestFreeRepayment = (AmountRequired + establishmentFee) / termInMonths;
+                decimal remainingPrincipal = AmountRequired - (interestFreeRepayment * interestFreeMonths);
                 int remainingTerm = termInMonths - interestFreeMonths;
 
                 if (remainingTerm > 0)
@@ -59,7 +59,7 @@
                 }
             }
 
-            return CalculateAnnuityRepayment(Amount + establishmentFee, monthlyInterestRate, termInMonths);
+            return CalculateAnnuityRepayment(AmountRequired + establishmentFee, monthlyInterestRate, termInMonths);
         }
 
         private decimal CalculateAnnuityRepayment(decimal principal, decimal monthlyInterestRate, int termInMonths)

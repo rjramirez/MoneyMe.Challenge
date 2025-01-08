@@ -14,7 +14,7 @@ namespace DataAccess.DBContexts.MoneyMeChallengeDB.Models
         [StringLength(50)]
         public string Product { get; set; }
         [Column(TypeName = "money")]
-        public decimal Amount { get; set; }
+        public decimal AmountRequired { get; set; }
         [Column(TypeName = "money")]
         public decimal MonthlyRepaymentAmount { get; set; }
         public short Term { get; set; }

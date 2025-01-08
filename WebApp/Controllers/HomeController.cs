@@ -44,7 +44,7 @@ namespace WebApp.Controllers
                 {
                     QuoteId = quoteDetail.QuoteId,
                     Product = quoteDetail.Product,
-                    Amount = quoteDetail.Amount,
+                    Amount = quoteDetail.AmountRequired,
                     Term = quoteDetail.Term,
                     MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount,
                     Title = quoteDetail.Title,
@@ -85,7 +85,7 @@ namespace WebApp.Controllers
                 {
                     QuoteId = quoteDetail.QuoteId,
                     Product = quoteDetail.Product,
-                    Amount = quoteDetail.Amount,
+                    Amount = quoteDetail.AmountRequired,
                     Term = quoteDetail.Term,
                     MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount,
                     Title = quoteDetail.Title,

@@ -101,7 +101,7 @@ namespace WebAPI.Tests.Controllers
             {
                 QuoteId = quoteId,
                 Product = "TestProduct",
-                Amount = 1000,
+                AmountRequired = 1000,
                 Term = 12,
                 Title = "Mr",
                 FirstName = "John",
@@ -123,7 +123,7 @@ namespace WebAPI.Tests.Controllers
             var returnedQuoteDetail = Assert.IsType<QuoteDetail>(okResult.Value);
             Assert.Equal(quoteDetail.QuoteId, returnedQuoteDetail.QuoteId);
             Assert.Equal(quoteDetail.Product, returnedQuoteDetail.Product);
-            Assert.Equal(quoteDetail.Amount, returnedQuoteDetail.Amount);
+            Assert.Equal(quoteDetail.AmountRequired, returnedQuoteDetail.AmountRequired);
             Assert.Equal(quoteDetail.Term, returnedQuoteDetail.Term);
             Assert.Equal(quoteDetail.Title, returnedQuoteDetail.Title);
             Assert.Equal(quoteDetail.FirstName, returnedQuoteDetail.FirstName);
