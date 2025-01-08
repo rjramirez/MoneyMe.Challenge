@@ -4,6 +4,8 @@ using Common.DataTransferObjects.AppSettings;
 using Common.DataTransferObjects.ErrorLog;
 using Common.DataTransferObjects.Version;
 using DataAccess.DBContexts.MoneyMeChallengeDB;
+using DataAccess.Services.Interfaces;
+using DataAccess.Services;
 using DataAccess.UnitOfWorks.MoneyMeChallengeDB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -34,6 +36,8 @@ builder.Services.AddScoped<IMoneyMeChallengeDBUnitOfWork, MoneyMeChallengeDBUnit
 
 //Internal Service Registration
 builder.Services.AddScoped<IErrorLogService, ErrorLogService>();
+
+builder.Services.AddScoped<IDbContextChangeTrackingService, DbContextChangeTrackingService>();
 
 /*HTTP REQUEST PIPELINE*/
 var app = builder.Build();
