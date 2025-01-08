@@ -64,7 +64,7 @@ namespace WebAPI.Tests.Controllers
             var okResult = Assert.IsType<OkObjectResult>(result);
             var quote = Assert.IsType<Quote>(okResult.Value);
             Assert.Equal(saveQuote.Product, quote.Product);
-            Assert.Equal(saveQuote.Amount, quote.Amount);
+            Assert.Equal(saveQuote.Amount, quote.AmountRequired);
             Assert.Equal(saveQuote.Term, quote.Term);
             Assert.Equal(saveQuote.Title, quote.Title);
             Assert.Equal(saveQuote.FirstName, quote.FirstName);

@@ -7,5 +7,6 @@
         public string EntityField { get; set; }
         public string OldValue { get; set; }
         public string NewValue { get; set; }
+        public string Action { get; set; }
     }
 }

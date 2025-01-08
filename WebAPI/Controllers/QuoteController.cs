@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
             Quote quote = new()
             {
                 Product = quoteDetail.Product,
-                Amount = quoteDetail.AmountRequired,
+                AmountRequired = quoteDetail.AmountRequired,
                 Term = quoteDetail.Term,
                 Title = quoteDetail.Title,
                 FirstName = quoteDetail.FirstName,
@@ -84,7 +84,7 @@ namespace WebAPI.Controllers
             Quote quoteDetailExisting = await _projectTemplateDBUnitOfWork.QuoteRepository.FirstOrDefaultAsync(e => e.QuoteId == saveQuote.QuoteId);
             
             quoteDetailExisting.Product = saveQuote.Product;
-            quoteDetailExisting.Amount = saveQuote.Amount;
+            quoteDetailExisting.AmountRequired = saveQuote.Amount;
             quoteDetailExisting.MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount;
             quoteDetailExisting.Term = saveQuote.Term;
             quoteDetailExisting.Title = saveQuote.Title;
@@ -111,7 +111,7 @@ namespace WebAPI.Controllers
                     QuoteId = id,
                     Product = e.Product,
                     Term = e.Term,
-                    AmountRequired = e.Amount,
+                    AmountRequired = e.AmountRequired,
                     MonthlyRepaymentAmount = e.MonthlyRepaymentAmount,
                     Title = e.Title,
                     FirstName = e.FirstName,
