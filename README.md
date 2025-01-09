@@ -3,7 +3,7 @@
 
 ## Welcome to the MoneyMe Challenge
 
-Welcome to the MoneyMe Challenge project! This solution is an Enterprise-grade architecture that uses UoW and Repository pattern that includes various functionalities such as calculating quotes, displaying quote details, and managing blacklists. Follow the instructions below to set up and run the project.
+Welcome to the MoneyMe Challenge project! This solution is an Enterprise-grade architecture, Single Page Application (SPA) that uses UoW and Repository pattern that includes various functionalities such as calculating quotes, displaying quote details, and managing blacklists. Follow the instructions below to set up and run the project.
 
 ### MoneyMe Challenge
 
