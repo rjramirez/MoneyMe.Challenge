@@ -5,7 +5,17 @@
 
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
-        @* <li class="nav-item menu-open">
+        <li class="nav-item menu-open">
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "Home")" class="nav-link">
+                        <em class="far fa-home nav-icon"></em>
+                        <p>Home</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item menu-open">
             <a href="#" class="nav-link" data-enable-remember="true">
                 <em class="nav-icon fas fa-tachometer-alt"></em>
                 <p>
@@ -22,6 +32,7 @@
                 </li>
             </ul>
         </li>
+        @*
         <li class="nav-item menu-open">
             <a href="#" class="nav-link">
                 <em class="nav-icon fa fa-book"></em>
