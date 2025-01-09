@@ -7,7 +7,7 @@ namespace Common.DataTransferObjects.Quote
     {
         public int QuoteId { get; set; }
         public string Product { get; set; }
-        public decimal Amount { get; set; }
+        public decimal AmountRequired { get; set; }
         public short Term { get; set; }
         [StringLength(4)]
         public string Title { get; set; }

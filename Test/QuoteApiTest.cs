@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using WebAPI.Controllers;
+using WebAPI.Services.Interfaces;
 using Xunit;
 
 namespace WebAPI.Tests.Controllers
@@ -16,12 +16,14 @@ namespace WebAPI.Tests.Controllers
     public class QuoteControllerTests
     {
         private readonly Mock<IMoneyMeChallengeDBUnitOfWork> _mockUnitOfWork;
+        private readonly Mock<IQuoteService> _mockQuoteService;
         private readonly QuoteController _controller;
 
         public QuoteControllerTests()
         {
             _mockUnitOfWork = new Mock<IMoneyMeChallengeDBUnitOfWork>();
-            _controller = new QuoteController(_mockUnitOfWork.Object);
+            _mockQuoteService = new Mock<IQuoteService>();
+            _controller = new QuoteController(_mockUnitOfWork.Object, _mockQuoteService.Object);
         }
 
         [Fact]
@@ -44,7 +46,7 @@ namespace WebAPI.Tests.Controllers
             var saveQuote = new SaveQuote
             {
                 Product = "TestProduct",
-                Amount = 1000,
+                AmountRequired = 1000,
                 Term = 12,
                 Title = "Mr",
                 FirstName = "John",
@@ -64,7 +66,7 @@ namespace WebAPI.Tests.Controllers
             var okResult = Assert.IsType<OkObjectResult>(result);
             var quote = Assert.IsType<Quote>(okResult.Value);
             Assert.Equal(saveQuote.Product, quote.Product);
-            Assert.Equal(saveQuote.Amount, quote.AmountRequired);
+            Assert.Equal(saveQuote.AmountRequired, quote.AmountRequired);
             Assert.Equal(saveQuote.Term, quote.Term);
             Assert.Equal(saveQuote.Title, quote.Title);
             Assert.Equal(saveQuote.FirstName, quote.FirstName);

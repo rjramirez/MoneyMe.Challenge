@@ -1,13 +1,11 @@
 using ApiConfiguration;
 using Common.Constants;
-using Common.DataTransferObjects.AppSettings;
 using Common.DataTransferObjects.ErrorLog;
 using Common.DataTransferObjects.Version;
 using DataAccess.DBContexts.MoneyMeChallengeDB;
 using DataAccess.Services.Interfaces;
 using DataAccess.Services;
 using DataAccess.UnitOfWorks.MoneyMeChallengeDB;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -19,15 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 ApiServices.ConfigureServices(builder.Services);
 
-//Api Policy Authorization
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.AddPolicy("SystemLog", builder =>
-//    {
-//        builder.RequireScope("ProjectTemplateApi.SystemLog");
-//    });
-//});
-
 //DBContext Registration
 builder.Services.AddDbContext<MoneyMeChallengeDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MoneyMeChallengeDB")));
 
@@ -36,8 +25,8 @@ builder.Services.AddScoped<IMoneyMeChallengeDBUnitOfWork, MoneyMeChallengeDBUnit
 
 //Internal Service Registration
 builder.Services.AddScoped<IErrorLogService, ErrorLogService>();
-
 builder.Services.AddScoped<IDbContextChangeTrackingService, DbContextChangeTrackingService>();
+builder.Services.AddScoped<IQuoteService, QuoteService>();
 
 /*HTTP REQUEST PIPELINE*/
 var app = builder.Build();

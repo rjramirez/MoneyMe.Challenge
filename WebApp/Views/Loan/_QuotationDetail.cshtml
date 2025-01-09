@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="financeAmount">Finance Amount</label>
-                    <input type="text" id="financeAmount" name="financeAmount" class="form-control" value="@Model.Amount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))" readonly />
+                    <input type="text" id="financeAmount" name="financeAmount" class="form-control" value="@Model.AmountRequired.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))" readonly />
                 </div>
                 <div class="form-group">
                     <label for="loanTerm">Loan Term</label>
@@ -69,7 +69,7 @@
     {
         <div class="form-group text-center">
             <p class="text-muted">
-                You have selected the <strong>@Model.Product</strong> product. The finance amount is <strong>@Model.Amount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</strong>, which you will repay over a term of <strong>@Model.Term</strong> months. Your monthly repayment amount will be <strong>@Model.MonthlyRepaymentAmount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</strong>. The repayment amount is based on the selected variables, added an establishment fee that is subject to our assessment and suitability criteria, and other important terms and conditions apply.
+                You have selected the <strong>@Model.Product</strong> product. The finance amount is <strong>@Model.AmountRequired.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</strong>, which you will repay over a term of <strong>@Model.Term</strong> months. Your monthly repayment amount will be <strong>@Model.MonthlyRepaymentAmount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</strong>. The repayment amount is based on the selected variables, added an establishment fee that is subject to our assessment and suitability criteria, and other important terms and conditions apply.
             </p>
         </div>
 

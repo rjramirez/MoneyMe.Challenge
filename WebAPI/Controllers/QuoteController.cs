@@ -5,6 +5,7 @@ using DataAccess.DBContexts.MoneyMeChallengeDB.Models;
 using DataAccess.UnitOfWorks.MoneyMeChallengeDB;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Controllers
 {
@@ -13,9 +14,11 @@ namespace WebAPI.Controllers
     public class QuoteController : ControllerBase
     {
         private readonly IMoneyMeChallengeDBUnitOfWork _projectTemplateDBUnitOfWork;
-        public QuoteController(IMoneyMeChallengeDBUnitOfWork projectTemplateDBUnitOfWork)
+        private readonly IQuoteService _quoteService;
+        public QuoteController(IMoneyMeChallengeDBUnitOfWork projectTemplateDBUnitOfWork, IQuoteService quoteService)
         {
             _projectTemplateDBUnitOfWork = projectTemplateDBUnitOfWork;
+            _quoteService = quoteService;
         }
 
         [HttpPost]
@@ -28,10 +31,10 @@ namespace WebAPI.Controllers
                 return BadRequest("Invalid quote data.");
             }
 
-            QuoteDetail quoteDetail = new QuoteDetail
+            Quote quote = new()
             {
                 Product = saveQuote.Product,
-                AmountRequired = saveQuote.Amount,
+                AmountRequired = saveQuote.AmountRequired,
                 Term = saveQuote.Term,
                 Title = saveQuote.Title,
                 FirstName = saveQuote.FirstName,
@@ -39,21 +42,8 @@ namespace WebAPI.Controllers
                 DateOfBirth = saveQuote.DateOfBirth,
                 Email = saveQuote.Email,
                 Mobile = saveQuote.Mobile,
-            };
-
-            Quote quote = new()
-            {
-                Product = quoteDetail.Product,
-                AmountRequired = quoteDetail.AmountRequired,
-                Term = quoteDetail.Term,
-                Title = quoteDetail.Title,
-                FirstName = quoteDetail.FirstName,
-                LastName = quoteDetail.LastName,
-                DateOfBirth = quoteDetail.DateOfBirth,
-                Email = quoteDetail.Email,
-                Mobile = quoteDetail.Mobile,
-                MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount,
-                CreatedBy = quoteDetail.Email,
+                MonthlyRepaymentAmount = _quoteService.CalculateMonthlyRepaymentAmount(saveQuote.AmountRequired, saveQuote.Product, saveQuote.Term),
+                CreatedBy = saveQuote.Email,
                 CreatedDate = DateTime.UtcNow,
                 Active = true
             };
@@ -77,14 +67,14 @@ namespace WebAPI.Controllers
             QuoteDetail quoteDetail = new QuoteDetail
             {
                 Product = saveQuote.Product,
-                AmountRequired = saveQuote.Amount,
+                AmountRequired = saveQuote.AmountRequired,
                 Term = saveQuote.Term
             };
 
             Quote quoteDetailExisting = await _projectTemplateDBUnitOfWork.QuoteRepository.FirstOrDefaultAsync(e => e.QuoteId == saveQuote.QuoteId);
             
             quoteDetailExisting.Product = saveQuote.Product;
-            quoteDetailExisting.AmountRequired = saveQuote.Amount;
+            quoteDetailExisting.AmountRequired = saveQuote.AmountRequired;
             quoteDetailExisting.MonthlyRepaymentAmount = quoteDetail.MonthlyRepaymentAmount;
             quoteDetailExisting.Term = saveQuote.Term;
             quoteDetailExisting.Title = saveQuote.Title;

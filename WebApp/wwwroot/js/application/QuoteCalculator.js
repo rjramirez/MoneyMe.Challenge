@@ -94,7 +94,7 @@ let QuoteCalculator = function () {
         createModel: function () {
             let model = {};
             model.Product = $("#selectProduct").val();
-            model.Amount = $("#sliderAmount").val();
+            model.AmountRequired = $("#sliderAmount").val();
             model.Term = $("#selectTerm").val();
             model.Title = $("#txtTitle").val();
             model.FirstName = $("#txtFirstName").val();
@@ -109,7 +109,7 @@ let QuoteCalculator = function () {
             let model = {};
             model.QuoteId = $("#hdnQuoteId").val();
             model.Product = $("#selectProductEdit").val();
-            model.Amount = $("#sliderAmountEdit").val();
+            model.AmountRequired = $("#sliderAmountEdit").val();
             model.Term = $("#selectTermEdit").val();
             model.Title = $("#txtTitleEdit").val();
             model.FirstName = $("#txtFirstNameEdit").val();
